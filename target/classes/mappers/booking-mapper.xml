@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.prj.nicarnaecar.dao.BookingDAO">	
+	<insert id="bookingInsert">
+		insert into booking(bnumber, vnumber, cemail, bin, bout, bprice, vgage) values
+		(booking_seq.nextval, #{vnumber}, #{cemail}, #{bin}, #{bout}, #{bprice}, #{vgage})
+	</insert>
+	
+	<update id="bookingModify">
+		update booking set
+			vnumber 	= #{vnumber},
+			bin 		= #{bin},
+			bout 		= #{bout},
+			bprice 		= #{bprice}
+		where bnumber 	= #{bnumber}
+	</update>
+	
+	<delete id="bookingDelete">
+		update booking set
+			bstatus = '취소'
+		where bnumber = #{bnumber}
+	</delete>
+	
+	<select id="bookingView" resultType="BookingVO">
+		select * from booking where cemail = #{cemail}
+	</select>
+	
+</mapper>
