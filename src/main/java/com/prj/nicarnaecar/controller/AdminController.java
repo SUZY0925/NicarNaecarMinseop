@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.prj.nicarnaecar.service.ProfitService;
 import com.prj.nicarnaecar.service.SearchService;
@@ -49,7 +50,12 @@ public class AdminController {
 	@RequestMapping("/profitInsertOK")
 	public String profitInsertOK(ProfitVO profitVO) {
 		profitService.profitInsert(profitVO);
-		System.out.println(profitVO);
-		return "redirect:/";
+		return "redirect:/admin/profit";
+	}
+	
+	@RequestMapping(value="/profitDeleteOK",method=RequestMethod.GET)
+	public String profitDeleteOK(int pnumber) {
+		profitService.profitDelete(pnumber);
+		return "redirect:/admin/profit";
 	}
 }

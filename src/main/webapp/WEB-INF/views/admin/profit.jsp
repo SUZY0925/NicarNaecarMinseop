@@ -49,12 +49,6 @@
 	    background-color: #eee;
 	    border-radius: 50%;
 	}
-	
-	/* On mouse-over, add a grey background color */
-	.container:hover input ~ .checkmark {
-	    background-color: #ccc;
-	}
-	
 	/* When the radio button is checked, add a blue background */
 	.container input:checked ~ .checkmark {
 	    background-color: #2196F3;
@@ -74,12 +68,18 @@
 	input[type=submit]{
 		margin-top:-10px;
 	}
+	input[type=checkbox]{
+		margin:5px;
+		margin-top:10px;
+	}
 </style>
 <script>
 	$(function(){
 		$("#deleteBtn").on("click",function(){
-			$("")
-		})
+			alert("삭제되었습니다.");
+		});
+		
+		
 	})
 	function addComma(num) {
 		var regexp = /\B(?=(\d{3})+(?!\d))/g;
@@ -127,41 +127,41 @@
 	<br />
 	<div class="card">
     <div class="card-body">
-
         <!--Table-->
         <table class="table table-hover table-responsive-md table-fixed" id="profitTable">
-
+			<h2 style="display:inline;">거래 목록</h2>
             <!--Table head-->
-            <!-- <thead>
+            <thead>
                 <tr>
-                    <th>#Number</th>
-                    <th>대상</th>
-                    <th>수입/지출</th>
-                    <th>금액</th>
-                    <th>예약번호</th>
-                    <th>거래내역</th>
+                    <th><h4>#Number</h4></th>
+                    <th><h4>대상</h4></th>
+                    <th><h4>수입/지출</h4></th>
+                    <th><h4>금액</h4></th>
+                    <th><h4>예약번호</h4></th>
+                    <th><h4>거래내역</h4></th>
                 </tr>
-            </thead> -->
+            </thead>
             <!--Table head-->
 
             <!--Table body-->
-            <tbody>
-            	<h2 style="display:inline;">거래 목록</h2>
-            	<button class="btn btn-primary" id="deleteBtn" style="float:right;">삭제</button>
+            <tbody id="profitTableIn">
+            	<form:form action="/admin/deleteOK?${profit.pnumber}" method="get">
+            	<button type="submit" class="btn btn-primary" id="deleteBtn" style="float:right;">삭제</button>
                 <script>
 				var str = "";
 			    <c:forEach items="${profitList }" var="profit">
 			        str += "<tr>";
-			        str += "<td>${profit.pnumber} </td>";
-			        str += "<td>${profit.ptarget} ${profit.vyear } </td>"; 
+			        str += "<td><input type='checkbox' value='${profit.pnumber}'> ${profit.pnumber}</td>";
+			        str += "<td>${profit.ptarget} </td>"; 
 			        str += "<td>${profit.pinout} </td>";
 			        str += "<td>"+addComma("${profit.pamount}")+"원</td>"; 
 			        str += "<td>${profit.bnumber} </td>"; 
 			        str += "<td>${profit.pmemo} </td>"; 
 			        str += "</tr>";
 			     </c:forEach>
-			     $("#profitTable").html(str);
+			     $("#profitTableIn").html(str);
 			</script>
+			</form:form>
             </tbody>
             <!--Table body-->
 
